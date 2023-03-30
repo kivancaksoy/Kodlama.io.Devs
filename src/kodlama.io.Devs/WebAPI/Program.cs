@@ -1,5 +1,6 @@
 using Application;
 using Persistence;
+using Core.CrossCuttingConcerns.Exceptions;
 
 namespace WebAPI
 {
@@ -29,6 +30,9 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            if (app.Environment.IsProduction())
+                app.ConfigureCustomExceptionMiddleware();
 
             app.UseAuthorization();
 
