@@ -14,7 +14,7 @@ namespace WebAPI
 
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddApplicationServices();
-            
+
 
 
             builder.Services.AddControllers();
@@ -31,8 +31,8 @@ namespace WebAPI
                 app.UseSwaggerUI();
             }
 
-            if (app.Environment.IsProduction())
-                app.ConfigureCustomExceptionMiddleware();
+            //if (app.Environment.IsProduction())
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseAuthorization();
 

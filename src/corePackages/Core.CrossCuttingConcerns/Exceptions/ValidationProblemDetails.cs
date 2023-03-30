@@ -8,7 +8,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
         public object Errors { get; set; }
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(Errors);
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

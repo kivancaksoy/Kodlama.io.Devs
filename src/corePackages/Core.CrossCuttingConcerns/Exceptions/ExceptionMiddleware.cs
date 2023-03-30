@@ -74,14 +74,16 @@ namespace Core.CrossCuttingConcerns.Exceptions
         private Task CreateValidationException(HttpContext context, Exception exception)
         {
             context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
+            object errors = ((ValidationException)exception).Errors;
 
             return context.Response.WriteAsync(new ValidationProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://example.com/probs/validation",
                 Title = "Validation error(s)",
-                Detail = exception.Message,
-                Instance = ""
+                Detail = "",
+                Instance = "",
+                Errors = errors
             }.ToString());
         }
 
