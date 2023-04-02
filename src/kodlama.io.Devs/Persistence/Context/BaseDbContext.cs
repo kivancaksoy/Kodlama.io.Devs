@@ -8,6 +8,7 @@ namespace Persistence.Context
     {
         protected IConfiguration Configuration { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<Technology>Technologies { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -28,6 +29,16 @@ namespace Persistence.Context
                 a.ToTable("ProgrammingLanguages").HasKey(k => k.Id);
                 a.Property(p => p.Id).HasColumnName("Id");
                 a.Property(p => p.Name).HasColumnName("Name");
+                a.HasMany(p => p.Technologies);
+            });
+
+            modelBuilder.Entity<Technology>(a =>
+            {
+                a.ToTable("Technologies").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.ProgrammingLanguageId).HasColumnName("ProgrammingLanguageId");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.HasOne(p => p.ProgrammingLanguage);
             });
 
             ProgrammingLanguage[] programmingLanguageEntitySeeds =
@@ -35,6 +46,13 @@ namespace Persistence.Context
                 new(1, "Go")
             };
             modelBuilder.Entity<ProgrammingLanguage>().HasData(programmingLanguageEntitySeeds);
+
+            Technology[] technologyEntitySeeds =
+            {
+                new(1, 2, "WPF"),
+                new(2, 2, "ASP.NET")
+            };
+            modelBuilder.Entity<Technology>().HasData(technologyEntitySeeds);
         }
     }
 }
