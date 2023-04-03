@@ -13,7 +13,7 @@ namespace Domain.Entities
         public int ProgrammingLanguageId { get; set; }
         public string Name { get; set; }
 
-        public ProgrammingLanguage ProgrammingLanguage { get; set; }
+        public ProgrammingLanguage? ProgrammingLanguage { get; set; }
 
         public Technology()
         {

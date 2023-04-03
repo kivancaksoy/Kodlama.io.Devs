@@ -9,7 +9,7 @@ namespace Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLa
 {
     public class DeleteProgrammingLanguageCommand : IRequest<DeletedProgrammingLanguageDto>
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
 
         public class DeleteProgrammingLanguageCommandHandler : IRequestHandler<DeleteProgrammingLanguageCommand, DeletedProgrammingLanguageDto>
         {
@@ -26,8 +26,8 @@ namespace Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLa
 
             public async Task<DeletedProgrammingLanguageDto> Handle(DeleteProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
-                ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Name == request.Name);
-                await _businessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
+                ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
+                _businessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
                 ProgrammingLanguage deletedProgrammingLanguage = await _programmingLanguageRepository.DeleteAsync(programmingLanguage);
                 DeletedProgrammingLanguageDto deletedProgrammingLanguageDto = _mapper.Map<DeletedProgrammingLanguageDto>(deletedProgrammingLanguage);
 

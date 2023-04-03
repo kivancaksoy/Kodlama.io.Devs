@@ -6,8 +6,8 @@ namespace Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLa
     {
         public DeleteProgrammingLanguageValidator()
         {
-            RuleFor(p => p.Name).NotEmpty();
-            RuleFor(p => p.Name).NotNull();
+            RuleFor(p => p.Id).NotEmpty();
+            RuleFor(p => p.Id).NotNull();
         }
     }
 }

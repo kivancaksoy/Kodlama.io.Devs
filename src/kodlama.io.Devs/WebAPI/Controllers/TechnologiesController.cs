@@ -1,4 +1,8 @@
-﻿using Application.Features.Technologies.Models;
+﻿using Application.Features.Technologies.Commands;
+using Application.Features.Technologies.Commands.DeleteTechnology;
+using Application.Features.Technologies.Commands.UpdateTechnology;
+using Application.Features.Technologies.Dtos;
+using Application.Features.Technologies.Models;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
@@ -14,8 +18,29 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {
             GetListTechnologyQuery getListTechnologyQuery = new GetListTechnologyQuery() { PageRequest = pageRequest };
-            TechnologyListModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
-            return Ok(technologyListModel);
+            TechnologyListModel result = await Mediator.Send(getListTechnologyQuery);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CreateTechnologyCommand createTechnologyCommand)
+        {
+            CreatedTechnologyDto result = await Mediator.Send(createTechnologyCommand);
+            return Created("", result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
+        {
+            UpdatedTechnologyDto result = await Mediator.Send(updateTechnologyCommand);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
+        {
+            DeletedTechnologyDto result = await Mediator.Send(deleteTechnologyCommand);
+            return Ok(result);
         }
     }
 }
