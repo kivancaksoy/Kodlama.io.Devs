@@ -5,6 +5,8 @@ using System.Reflection;
 using FluentValidation;
 using Core.Application.Pipelines.Validation;
 using Application.Features.Technologies.Rules;
+using Application.Services.AuthService;
+using Application.Features.Auths.Rules;
 
 namespace Application
 {
@@ -20,6 +22,9 @@ namespace Application
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<AuthBusinessRules>();
 
             return services;
         }
