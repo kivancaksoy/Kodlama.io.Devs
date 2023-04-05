@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20230404071429_mig_4")]
-    partial class mig_4
+    [Migration("20230405125644_mig_1")]
+    partial class mig_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,6 +169,31 @@ namespace Persistence.Migrations
                     b.ToTable("UserOperationClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.GithubAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Address");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GithubAddresses", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Property<int>("Id")
@@ -192,6 +217,16 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             Name = "Go"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "C#"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Java"
                         });
                 });
 
@@ -231,6 +266,12 @@ namespace Persistence.Migrations
                             Id = 2,
                             Name = "ASP.NET",
                             ProgrammingLanguageId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Spring",
+                            ProgrammingLanguageId = 3
                         });
                 });
 
@@ -260,6 +301,17 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("OperationClaim");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.GithubAddress", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

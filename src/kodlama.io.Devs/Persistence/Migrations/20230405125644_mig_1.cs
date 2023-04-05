@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class mig_4 : Migration
+    public partial class mig_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,19 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OperationClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProgrammingLanguages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProgrammingLanguages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,6 +52,46 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Technologies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgrammingLanguageId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Technologies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Technologies_ProgrammingLanguages_ProgrammingLanguageId",
+                        column: x => x.ProgrammingLanguageId,
+                        principalTable: "ProgrammingLanguages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GithubAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GithubAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GithubAddresses_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,10 +147,50 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "ProgrammingLanguages",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Go" });
+
+            migrationBuilder.InsertData(
+                table: "ProgrammingLanguages",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "C#" });
+
+            migrationBuilder.InsertData(
+                table: "ProgrammingLanguages",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Java" });
+
+            migrationBuilder.InsertData(
+                table: "Technologies",
+                columns: new[] { "Id", "Name", "ProgrammingLanguageId" },
+                values: new object[] { 1, "WPF", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Technologies",
+                columns: new[] { "Id", "Name", "ProgrammingLanguageId" },
+                values: new object[] { 2, "ASP.NET", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Technologies",
+                columns: new[] { "Id", "Name", "ProgrammingLanguageId" },
+                values: new object[] { 3, "Spring", 3 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GithubAddresses_UserId",
+                table: "GithubAddresses",
+                column: "UserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Technologies_ProgrammingLanguageId",
+                table: "Technologies",
+                column: "ProgrammingLanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOperationClaims_OperationClaimId",
@@ -113,10 +206,19 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "GithubAddresses");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
+                name: "Technologies");
+
+            migrationBuilder.DropTable(
                 name: "UserOperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "ProgrammingLanguages");
 
             migrationBuilder.DropTable(
                 name: "OperationClaims");

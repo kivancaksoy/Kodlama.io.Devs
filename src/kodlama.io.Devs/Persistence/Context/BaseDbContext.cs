@@ -14,6 +14,7 @@ namespace Persistence.Context
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<GithubAddress> GithubAddresses { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -93,17 +94,29 @@ namespace Persistence.Context
                 a.HasOne(p => p.User);
             });
 
+            modelBuilder.Entity<GithubAddress>(a =>
+            {
+                a.ToTable("GithubAddresses").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Address).HasColumnName("Address");
+                a.Property(p => p.UserId).HasColumnName("UserId");
+                a.HasOne(p => p.User);
+            });
+
 
             ProgrammingLanguage[] programmingLanguageEntitySeeds =
             {
-                new(1, "Go")
+                new(1, "Go"),
+                new(2, "C#"),
+                new(3, "Java"),
             };
             modelBuilder.Entity<ProgrammingLanguage>().HasData(programmingLanguageEntitySeeds);
 
             Technology[] technologyEntitySeeds =
             {
                 new(1, 2, "WPF"),
-                new(2, 2, "ASP.NET")
+                new(2, 2, "ASP.NET"),
+                new(3, 3, "Spring")
             };
             modelBuilder.Entity<Technology>().HasData(technologyEntitySeeds);
         }
