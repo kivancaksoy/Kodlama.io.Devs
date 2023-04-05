@@ -7,6 +7,7 @@ using Core.Application.Pipelines.Validation;
 using Application.Features.Technologies.Rules;
 using Application.Services.AuthService;
 using Application.Features.Auths.Rules;
+using Application.Features.GithubAddresses.Rules;
 
 namespace Application
 {
@@ -25,6 +26,8 @@ namespace Application
 
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<AuthBusinessRules>();
+
+            services.AddScoped<GithubAddressBusinessRules>();
 
             return services;
         }
