@@ -20,16 +20,16 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Get([FromQuery] PageRequest pageRequest)
         {
 
-            GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new GetListProgrammingLanguageQuery() { PageRequest = pageRequest };
+            GetAllProgrammingLanguageQuery getListProgrammingLanguageQuery = new GetAllProgrammingLanguageQuery() { PageRequest = pageRequest };
 
-            ProgrammingLanguageListModel result = await Mediator.Send(getListProgrammingLanguageQuery);
+            GetAllProgrammingLanguageModel result = await Mediator.Send(getListProgrammingLanguageQuery);
             return Ok(result);
         }
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdProgrammingLanguageQuery getByIdProgrammingLanguageQuery)
         {
-            ProgrammingLanguageGetByIdDto result = await Mediator.Send(getByIdProgrammingLanguageQuery);
+            GetByIdProgrammingLanguageDto result = await Mediator.Send(getByIdProgrammingLanguageQuery);
             return Ok(result);
         }
 

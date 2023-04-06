@@ -3,8 +3,8 @@ using Core.Persistence.Paging;
 
 namespace Application.Features.ProgrammingLanguages.Models
 {
-    public class ProgrammingLanguageListModel : BasePageableModel
+    public class GetAllProgrammingLanguageModel : BasePageableModel
     {
-        public IList<ProgrammingLanguageListDto> Items { get; set; }
+        public IList<GetAllProgrammingLanguageDto> Items { get; set; }
     }
 }

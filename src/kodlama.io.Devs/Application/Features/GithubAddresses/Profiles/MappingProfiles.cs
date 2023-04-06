@@ -26,10 +26,10 @@ namespace Application.Features.GithubAddresses.Profiles
 
             CreateMap<GithubAddress, DeletedGithubAddressDto>().ReverseMap();
 
-            CreateMap<GithubAddress, GithubAddressGetByIdDto>().ReverseMap();
+            CreateMap<GithubAddress, GetByIdGithubAddressDto>().ReverseMap();
 
-            CreateMap<IPaginate<GithubAddress>, GithubAddressListModel>().ReverseMap();
-            CreateMap<GithubAddress, GithubAddressListDto>()
+            CreateMap<IPaginate<GithubAddress>, GetAllGithubAddressModel>().ReverseMap();
+            CreateMap<GithubAddress, GetAllGithubAddressDto>()
                 .ForMember(g => g.UserName, opt => opt.MapFrom(g => $"{g.User.FirstName} {g.User.LastName}")).ReverseMap();
 
 

@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.GithubAddresses.Queries.GetAllGithubAddress
 {
-    public class GetAllGithubAddressQuery : IRequest<GithubAddressListModel>
+    public class GetAllGithubAddressQuery : IRequest<GetAllGithubAddressModel>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetAllGithubAddressQueryHandler : IRequestHandler<GetAllGithubAddressQuery, GithubAddressListModel>
+        public class GetAllGithubAddressQueryHandler : IRequestHandler<GetAllGithubAddressQuery, GetAllGithubAddressModel>
         {
             private readonly IGithubAddressRepository _githubAddressRepository;
             private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Application.Features.GithubAddresses.Queries.GetAllGithubAddress
                 _mapper = mapper;
             }
 
-            public async Task<GithubAddressListModel> Handle(GetAllGithubAddressQuery request, CancellationToken cancellationToken)
+            public async Task<GetAllGithubAddressModel> Handle(GetAllGithubAddressQuery request, CancellationToken cancellationToken)
             {
 
                 IPaginate<GithubAddress> githubAddresses = await _githubAddressRepository.GetListAsync(
@@ -38,7 +38,7 @@ namespace Application.Features.GithubAddresses.Queries.GetAllGithubAddress
                     include: g => g.Include(c => c.User)
                     );
 
-                GithubAddressListModel mappedGithubAddressListModel = _mapper.Map<GithubAddressListModel>(githubAddresses);
+                GetAllGithubAddressModel mappedGithubAddressListModel = _mapper.Map<GetAllGithubAddressModel>(githubAddresses);
                 return mappedGithubAddressListModel;
             }
         }

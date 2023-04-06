@@ -12,10 +12,10 @@ namespace Application.Features.ProgrammingLanguages.Profiles
     {
         public MappingProfiles() 
         { 
-            CreateMap<ProgrammingLanguage, ProgrammingLanguageListDto>().ReverseMap();
-            CreateMap<IPaginate<ProgrammingLanguage>, ProgrammingLanguageListModel>().ReverseMap();
+            CreateMap<ProgrammingLanguage, GetAllProgrammingLanguageDto>().ReverseMap();
+            CreateMap<IPaginate<ProgrammingLanguage>, GetAllProgrammingLanguageModel>().ReverseMap();
 
-            CreateMap<ProgrammingLanguage, ProgrammingLanguageGetByIdDto>().ReverseMap();
+            CreateMap<ProgrammingLanguage, GetByIdProgrammingLanguageDto>().ReverseMap();
 
             CreateMap<ProgrammingLanguage, CreatedProgrammingLanguageDto>().ReverseMap();
             CreateMap<ProgrammingLanguage, CreateProgrammingLanguageCommand>().ReverseMap();

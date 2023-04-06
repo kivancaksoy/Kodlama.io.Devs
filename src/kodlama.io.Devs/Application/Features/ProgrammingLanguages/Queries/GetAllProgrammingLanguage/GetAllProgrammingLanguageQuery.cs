@@ -6,13 +6,13 @@ using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.ProgrammingLanguages.Queries.GetListProgrammingLanguage
+namespace Application.Features.ProgrammingLanguages.Queries.GetAllProgrammingLanguage
 {
-    public class GetListProgrammingLanguageQuery : IRequest<ProgrammingLanguageListModel>
+    public class GetAllProgrammingLanguageQuery : IRequest<GetAllProgrammingLanguageModel>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetListProgrammingLanguageQueryHandler : IRequestHandler<GetListProgrammingLanguageQuery, ProgrammingLanguageListModel>
+        public class GetListProgrammingLanguageQueryHandler : IRequestHandler<GetAllProgrammingLanguageQuery, GetAllProgrammingLanguageModel>
         {
             private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
             private readonly IMapper _mapper;
@@ -23,11 +23,11 @@ namespace Application.Features.ProgrammingLanguages.Queries.GetListProgrammingLa
                 _mapper = mapper;
             }
 
-            public async Task<ProgrammingLanguageListModel> Handle(GetListProgrammingLanguageQuery request, CancellationToken cancellationToken)
+            public async Task<GetAllProgrammingLanguageModel> Handle(GetAllProgrammingLanguageQuery request, CancellationToken cancellationToken)
             {
                 IPaginate<ProgrammingLanguage> programmingLanguages = await _programmingLanguageRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
 
-                ProgrammingLanguageListModel mappedProgrammingLanguageListModel = _mapper.Map<ProgrammingLanguageListModel>(programmingLanguages);
+                GetAllProgrammingLanguageModel mappedProgrammingLanguageListModel = _mapper.Map<GetAllProgrammingLanguageModel>(programmingLanguages);
 
                 return mappedProgrammingLanguageListModel;
             }

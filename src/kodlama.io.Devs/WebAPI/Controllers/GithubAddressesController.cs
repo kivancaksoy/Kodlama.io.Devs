@@ -21,14 +21,14 @@ namespace WebAPI.Controllers
             {
                 PageRequest = pageRequest,
             };
-            GithubAddressListModel result = await Mediator.Send(getAllGithubAddressQuery);
+            GetAllGithubAddressModel result = await Mediator.Send(getAllGithubAddressQuery);
             return Ok(result);
         }
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdGithubAddressQuery getByIdGithubAddressQuery)
         {
-            GithubAddressGetByIdDto result = await Mediator.Send(getByIdGithubAddressQuery);
+            GetByIdGithubAddressDto result = await Mediator.Send(getByIdGithubAddressQuery);
             return Ok(result);
         }
 

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Features.GithubAddresses.Models
 {
-    public class GithubAddressListModel : BasePageableModel
+    public class GetAllGithubAddressModel : BasePageableModel
     {
-        public IList<GithubAddressListDto> Items { get; set; }
+        public IList<GetAllGithubAddressDto> Items { get; set; }
     }
 }

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Technologies.Models
 {
-    public class TechnologyListModel : BasePageableModel
+    public class GetAllTechnologyModel : BasePageableModel
     {
-        public IList<TechnologyListDto> Items { get; set; }
+        public IList<GetAllTechnologyDto> Items { get; set; }
     }
 }

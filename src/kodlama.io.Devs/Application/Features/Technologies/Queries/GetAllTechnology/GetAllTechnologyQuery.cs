@@ -12,13 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Technologies.Queries.GetListTechnology
+namespace Application.Features.Technologies.Queries.GetAllTechnology
 {
-    public class GetListTechnologyQuery : IRequest<TechnologyListModel>
+    public class GetAllTechnologyQuery : IRequest<GetAllTechnologyModel>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetListTechnologyQueryHandler : IRequestHandler<GetListTechnologyQuery, TechnologyListModel>
+        public class GetListTechnologyQueryHandler : IRequestHandler<GetAllTechnologyQuery, GetAllTechnologyModel>
         {
             private readonly ITechnologyRepository _technologyRepository;
             private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace Application.Features.Technologies.Queries.GetListTechnology
                 _mapper = mapper;
             }
 
-            public async Task<TechnologyListModel> Handle(GetListTechnologyQuery request, CancellationToken cancellationToken)
+            public async Task<GetAllTechnologyModel> Handle(GetAllTechnologyQuery request, CancellationToken cancellationToken)
             {
                 IPaginate<Technology> technologies = await _technologyRepository.GetListAsync(
                     include: t => t.Include(c => c.ProgrammingLanguage),
@@ -37,7 +37,7 @@ namespace Application.Features.Technologies.Queries.GetListTechnology
                     size: request.PageRequest.PageSize
                     );
 
-                TechnologyListModel mappedTechnologyListModel = _mapper.Map<TechnologyListModel>(technologies);
+                GetAllTechnologyModel mappedTechnologyListModel = _mapper.Map<GetAllTechnologyModel>(technologies);
 
                 return mappedTechnologyListModel;
             }

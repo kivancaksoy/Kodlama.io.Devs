@@ -17,8 +17,8 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {
-            GetListTechnologyQuery getListTechnologyQuery = new GetListTechnologyQuery() { PageRequest = pageRequest };
-            TechnologyListModel result = await Mediator.Send(getListTechnologyQuery);
+            GetAllTechnologyQuery getListTechnologyQuery = new GetAllTechnologyQuery() { PageRequest = pageRequest };
+            GetAllTechnologyModel result = await Mediator.Send(getListTechnologyQuery);
             return Ok(result);
         }
 

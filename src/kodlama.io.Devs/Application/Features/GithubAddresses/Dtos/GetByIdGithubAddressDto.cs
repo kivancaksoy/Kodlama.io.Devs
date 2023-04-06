@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.GithubAddresses.Dtos
 {
-    public class GithubAddressGetByIdDto
+    public class GetByIdGithubAddressDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }

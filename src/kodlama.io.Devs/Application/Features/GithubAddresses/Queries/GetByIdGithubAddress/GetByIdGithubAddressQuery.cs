@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.GithubAddresses.Queries.GetByIdGithubAddress
 {
-    public class GetByIdGithubAddressQuery : IRequest<GithubAddressGetByIdDto>
+    public class GetByIdGithubAddressQuery : IRequest<GetByIdGithubAddressDto>
     {
         public int Id { get; set; }
     }
 
-    public class GetByIdGithubAddressQueryHandler : IRequestHandler<GetByIdGithubAddressQuery, GithubAddressGetByIdDto>
+    public class GetByIdGithubAddressQueryHandler : IRequestHandler<GetByIdGithubAddressQuery, GetByIdGithubAddressDto>
     {
         private readonly IGithubAddressRepository _githubAddressRepository;
         private readonly IMapper _mapper;
@@ -30,12 +30,12 @@ namespace Application.Features.GithubAddresses.Queries.GetByIdGithubAddress
             _githubAddressBusinessRules = githubAddressBusinessRules;
         }
 
-        public async Task<GithubAddressGetByIdDto> Handle(GetByIdGithubAddressQuery request, CancellationToken cancellationToken)
+        public async Task<GetByIdGithubAddressDto> Handle(GetByIdGithubAddressQuery request, CancellationToken cancellationToken)
         {
             GithubAddress? githubAddress = await _githubAddressRepository.GetAsync(g => g.Id == request.Id);
             _githubAddressBusinessRules.GithubAddressShouldExistWhenRequested(githubAddress);
 
-            GithubAddressGetByIdDto githubAddressGetByIdDto = _mapper.Map<GithubAddressGetByIdDto>(githubAddress);
+            GetByIdGithubAddressDto githubAddressGetByIdDto = _mapper.Map<GetByIdGithubAddressDto>(githubAddress);
 
             return githubAddressGetByIdDto;
         }

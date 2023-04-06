@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Technologies.Dtos
+namespace Application.Features.ProgrammingLanguages.Dtos
 {
-    public class TechnologyListDto
+    public class GetByIdProgrammingLanguageDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ProgrammingLanguageName { get; set; }
     }
 }
