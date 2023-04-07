@@ -8,6 +8,7 @@ using Application.Features.Technologies.Rules;
 using Application.Services.AuthService;
 using Application.Features.Auths.Rules;
 using Application.Features.GithubAddresses.Rules;
+using Application.Features.OperationClaims.Rules;
 
 namespace Application
 {
@@ -28,6 +29,8 @@ namespace Application
             services.AddScoped<AuthBusinessRules>();
 
             services.AddScoped<GithubAddressBusinessRules>();
+
+            services.AddScoped<OperationClaimBusinessRules>();
 
             return services;
         }
