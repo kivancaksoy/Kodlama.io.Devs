@@ -26,10 +26,10 @@ namespace Application.Features.OperationClaims.Commands.DeleteOperationClaim
 
             public async Task<DeletedOperationClaimDto> Handle(DeleteOperationClaimCommand request, CancellationToken cancellationToken)
             {
-                await _operationClaimBusinessRules.OperationClaimShouldExistWhenRequested(request.Id);
+                OperationClaim? operationClaim = await _operationClaimRepository.GetAsync(u => u.Id == request.Id);
+                _operationClaimBusinessRules.OperationClaimShouldExistWhenRequested(operationClaim);
 
-                OperationClaim mappedOperationClaim = _mapper.Map<OperationClaim>(request);
-                OperationClaim DeletedOperationClaim = await _operationClaimRepository.DeleteAsync(mappedOperationClaim);
+                OperationClaim DeletedOperationClaim = await _operationClaimRepository.DeleteAsync(operationClaim);
                 DeletedOperationClaimDto DeletedOperationClaimDto = _mapper.Map<DeletedOperationClaimDto>(DeletedOperationClaim);
                 return DeletedOperationClaimDto;
             }

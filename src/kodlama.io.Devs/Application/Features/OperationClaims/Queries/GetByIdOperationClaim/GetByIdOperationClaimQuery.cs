@@ -26,9 +26,9 @@ namespace Application.Features.OperationClaims.Queries.GetByIdOperationClaim
 
             public async Task<GetByIdOperationClaimDto> Handle(GetByIdOperationClaimQuery request, CancellationToken cancellationToken)
             {
-                await _operationClaimBusinessRules.OperationClaimShouldExistWhenRequested(request.Id);
+                OperationClaim? operationClaim = await _operationClaimRepository.GetAsync(o => o.Id == request.Id);
 
-                OperationClaim operationClaim = await _operationClaimRepository.GetAsync(o => o.Id == request.Id);
+                _operationClaimBusinessRules.OperationClaimShouldExistWhenRequested(operationClaim);
 
                 GetByIdOperationClaimDto getByIdOperationClaimDto = _mapper.Map<GetByIdOperationClaimDto>(operationClaim);
                 return getByIdOperationClaimDto;

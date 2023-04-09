@@ -25,10 +25,9 @@ namespace Application.Features.OperationClaims.Rules
             if (result != null) throw new BusinessException("Operation claim name already exists.");
         }
 
-        public async Task OperationClaimShouldExistWhenRequested(int id)
+        public void OperationClaimShouldExistWhenRequested(OperationClaim operationClaim)
         {
-            OperationClaim? result = await _operationClaimRepository.GetAsync(o => o.Id == id);
-            if (result == null) throw new BusinessException("Operation claim does not exist.");
+            if (operationClaim == null) throw new BusinessException("Operation claim does not exist.");
 
         }
     }
