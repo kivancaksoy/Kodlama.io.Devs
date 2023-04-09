@@ -5,6 +5,7 @@ using Application.Features.UserOperationClaims.Dtos;
 using Application.Features.UserOperationClaims.Models;
 using Application.Features.UserOperationClaims.Queries.GetAllUserOperationClaim;
 using Application.Features.UserOperationClaims.Queries.GetByIdUserOperationClaim;
+using Application.Features.UserOperationClaims.Queries.GetByUserIdUserOperationClaim;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,14 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetById([FromRoute] GetByIdUserOperationClaimQuery getByIdUserOperationClaimQuery)
         {
             GetByIdUserOperationClaimDto result = await Mediator.Send(getByIdUserOperationClaimQuery);
+            return Ok(result);
+        }
+
+        [HttpGet("[action]/{UserId}/{PageRequest.Page}/{PageRequest.PageSize}")]
+        public async Task<IActionResult> GetByUserId([FromRoute] GetByUserIdUserOperationClaimQuery getByUserIdUserOperationClaimQuery)
+        {
+            //getByUserIdUserOperationClaimQuery.PageRequest = pageRequest;
+            GetByUserIdUserOperationClaimModel result = await Mediator.Send(getByUserIdUserOperationClaimQuery);
             return Ok(result);
         }
 

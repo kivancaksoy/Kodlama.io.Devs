@@ -21,7 +21,6 @@ namespace Application.Features.UserOperationClaims.Profiles
             CreateMap<UserOperationClaim, CreateUserOperationClaimCommand>().ReverseMap();
             CreateMap<UserOperationClaim, CreatedUserOperationClaimDto>().ReverseMap();
 
-            CreateMap<UserOperationClaim, DeleteUserOperationClaimCommand>().ReverseMap();
             CreateMap<UserOperationClaim, DeletedUserOperationClaimDto>().ReverseMap();
 
             CreateMap<UserOperationClaim, UpdateUserOperationClaimCommand>().ReverseMap();
@@ -35,6 +34,11 @@ namespace Application.Features.UserOperationClaims.Profiles
                 .ForMember(u => u.OperationClaimName, opt => opt.MapFrom(c => c.OperationClaim.Name))
                 .ReverseMap();
 
+            CreateMap<IPaginate<UserOperationClaim>, GetByUserIdUserOperationClaimModel>().ReverseMap();
+            CreateMap<UserOperationClaim, GetByUserIdUserOperationClaimDto>()
+                .ForMember(u => u.UserName, opt => opt.MapFrom(c => $"{c.User.FirstName} {c.User.LastName}"))
+                .ForMember(u => u.OperationClaimName, opt => opt.MapFrom(c => c.OperationClaim.Name))
+                .ReverseMap();
         }
     }
 }
