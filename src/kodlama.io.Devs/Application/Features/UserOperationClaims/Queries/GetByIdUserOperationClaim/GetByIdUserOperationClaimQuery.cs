@@ -1,7 +1,9 @@
-﻿using Application.Features.UserOperationClaims.Dtos;
+﻿using Application.Features.UserOperationClaims.Constants;
+using Application.Features.UserOperationClaims.Dtos;
 using Application.Features.UserOperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 using System;
@@ -12,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserOperationClaims.Queries.GetByIdUserOperationClaim
 {
-    public class GetByIdUserOperationClaimQuery : IRequest<GetByIdUserOperationClaimDto>
+    public class GetByIdUserOperationClaimQuery : IRequest<GetByIdUserOperationClaimDto>, ISecuredRequest
     {
         public int Id { get; set; }
+        public string[] Roles { get; } = new[] { UserOperationClaimOperationClaims.Admin };
 
         public class GetByIdUserOperationClaimQueryHandler : IRequestHandler<GetByIdUserOperationClaimQuery, GetByIdUserOperationClaimDto>
         {

@@ -1,7 +1,10 @@
-﻿using Application.Features.OperationClaims.Dtos;
+﻿using Application.Features.OperationClaims.Constants;
+using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Rules;
+using Application.Features.ProgrammingLanguages.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 using System;
@@ -12,9 +15,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OperationClaims.Commands.CreateOperationClaim
 {
-    public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimDto>
+    public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimDto>, ISecuredRequest
     {
         public string Name { get; set; }
+        public string[] Roles => new[] { OperationClaimOperationClaims.Admin };
 
         public class CreateOperationClaimCommandHandler : IRequestHandler<CreateOperationClaimCommand, CreatedOperationClaimDto>
         {

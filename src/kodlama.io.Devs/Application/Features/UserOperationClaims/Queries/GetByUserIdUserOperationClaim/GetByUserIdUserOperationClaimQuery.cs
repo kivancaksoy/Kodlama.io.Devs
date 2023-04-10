@@ -1,7 +1,9 @@
-﻿using Application.Features.UserOperationClaims.Models;
+﻿using Application.Features.UserOperationClaims.Constants;
+using Application.Features.UserOperationClaims.Models;
 using Application.Features.UserOperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Core.Security.Entities;
@@ -15,10 +17,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserOperationClaims.Queries.GetByUserIdUserOperationClaim
 {
-    public class GetByUserIdUserOperationClaimQuery : IRequest<GetByUserIdUserOperationClaimModel>
+    public class GetByUserIdUserOperationClaimQuery : IRequest<GetByUserIdUserOperationClaimModel>, ISecuredRequest
     {
         public int UserId { get; set; }
         public PageRequest PageRequest { get; set; }
+        public string[] Roles { get; } = new[] { UserOperationClaimOperationClaims.Admin };
 
         public class GetByUserIdUserOperationClaimQueryHandler : IRequestHandler<GetByUserIdUserOperationClaimQuery, GetByUserIdUserOperationClaimModel>
         {

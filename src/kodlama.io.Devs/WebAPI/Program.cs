@@ -79,6 +79,7 @@ namespace WebAPI
             if (app.Environment.IsProduction())
                 app.ConfigureCustomExceptionMiddleware();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

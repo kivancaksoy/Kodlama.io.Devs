@@ -1,15 +1,18 @@
-﻿using Application.Features.OperationClaims.Dtos;
+﻿using Application.Features.OperationClaims.Constants;
+using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 
 namespace Application.Features.OperationClaims.Queries.GetByIdOperationClaim
 {
-    public class GetByIdOperationClaimQuery : IRequest<GetByIdOperationClaimDto>
+    public class GetByIdOperationClaimQuery : IRequest<GetByIdOperationClaimDto>, ISecuredRequest
     {
         public int Id { get; set; }
+        public string[] Roles => new[] { OperationClaimOperationClaims.Admin };
 
         public class GetByIdOperationClaimQueryHandler : IRequestHandler<GetByIdOperationClaimQuery, GetByIdOperationClaimDto>
         {

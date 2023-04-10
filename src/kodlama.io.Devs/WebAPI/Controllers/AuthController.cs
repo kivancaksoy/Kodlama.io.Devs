@@ -26,8 +26,8 @@ namespace WebAPI.Controllers
             return Created("", result.AccessToken);
         }
 
-        [HttpGet("Login")]
-        public async Task<IActionResult> Login([FromQuery] UserForLoginDto userForLoginDto)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
         {
             LoginQuery loginQuery = new()
             {

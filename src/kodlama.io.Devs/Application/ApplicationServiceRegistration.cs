@@ -10,6 +10,7 @@ using Application.Features.Auths.Rules;
 using Application.Features.GithubAddresses.Rules;
 using Application.Features.OperationClaims.Rules;
 using Application.Features.UserOperationClaims.Rules;
+using Core.Application.Pipelines.Authorization;
 
 namespace Application
 {
@@ -25,6 +26,7 @@ namespace Application
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
 
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<AuthBusinessRules>();

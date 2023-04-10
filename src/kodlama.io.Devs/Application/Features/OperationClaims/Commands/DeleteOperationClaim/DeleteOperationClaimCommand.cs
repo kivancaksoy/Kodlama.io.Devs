@@ -1,15 +1,18 @@
-﻿using Application.Features.OperationClaims.Dtos;
+﻿using Application.Features.OperationClaims.Constants;
+using Application.Features.OperationClaims.Dtos;
 using Application.Features.OperationClaims.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 
 namespace Application.Features.OperationClaims.Commands.DeleteOperationClaim
 {
-    public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimDto>
+    public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimDto>, ISecuredRequest
     {
         public int Id { get; set; }
+        public string[] Roles => new[] { OperationClaimOperationClaims.Admin };
 
         public class DeleteOperationClaimCommandHandler : IRequestHandler<DeleteOperationClaimCommand, DeletedOperationClaimDto>
         {
